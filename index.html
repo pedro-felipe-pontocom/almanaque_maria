@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Almanaque da Maria</title>
+<meta name="description" content="Um almanaque feito à mão. Edição única, tiragem de 1 exemplar.">
+<meta name="theme-color" content="#141a30">
+<meta property="og:title" content="Almanaque da Maria">
+<meta property="og:description" content="Edição única. Tiragem: 1 exemplar.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23141a30'/%3E%3Cpath d='M16 3a13 13 0 1 1 0 26a8 13 0 1 0 0-26z' fill='%23f2e3b3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<!-- ============ CAPA ============ -->
+<header class="capa" id="capa">
+  <canvas id="ceu" aria-hidden="true"></canvas>
+
+  <div class="capa-topo mono">
+    <span>Edição única</span>
+    <span id="dataHoje"></span>
+    <span>Tiragem: 1 exemplar</span>
+  </div>
+
+  <div class="capa-corpo">
+    <h1 class="capa-titulo">
+      <span class="capa-pre">o almanaque da</span>
+      <span class="capa-nome" data-nome></span>
+    </h1>
+    <figure class="capa-lua">
+      <button class="lua-botao" id="luaBotao" aria-label="Girar as fases da lua">
+        <svg id="luaSvg" viewBox="0 0 200 200" aria-hidden="true"></svg>
+      </button>
+      <figcaption class="mono" id="luaLegenda"></figcaption>
+    </figure>
+  </div>
+
+  <p class="capa-sub" id="capaSub"></p>
+
+  <nav class="indice" aria-label="Índice">
+    <p class="mono indice-rot">Neste exemplar</p>
+    <ol id="indice"></ol>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============ A DEFINIÇÃO (piada interna) ============ -->
+  <section class="cap" id="c-definicao" data-titulo="A definição">
+    <header class="cap-cab">
+      <span class="cap-num mono"></span>
+      <h2 class="cap-titulo">A definição</h2>
+      <p class="anotacao">segundo o dicionário oficial de nós dois</p>
+    </header>
+    <div class="cap-corpo">
+      <article class="verbete">
+        <div class="verbete-cab">
+          <span class="verbete-palavra" id="verbetePalavra"></span>
+          <span class="mono verbete-pron" id="verbetePron"></span>
+          <em class="verbete-classe">substantivo próprio, feminino</em>
+        </div>
+        <p class="v-frase" id="vf1"></p>
+        <p class="v-frase v-perai" id="vf2"></p>
+        <ol class="acepcoes" id="acepcoes"></ol>
+        <div class="carimbo-area"><div class="carimbo" id="carimbo"></div></div>
+      </article>
+      <button class="btn-texto" id="btnPiada">ler o verbete <span class="seta">→</span></button>
+    </div>
+  </section>
+
+
+  <!-- ============ COISAS QUE EU ADMIRO ============ -->
+  <section class="cap" id="c-admiro" data-titulo="Coisas que eu admiro">
+    <header class="cap-cab">
+      <span class="cap-num mono"></span>
+      <h2 class="cap-titulo">Coisas que eu admiro</h2>
+      <p class="anotacao">lista incompleta, sempre</p>
+    </header>
+    <div class="cap-corpo">
+      <div class="baralho" id="baralho"></div>
+      <div class="baralho-ctrl">
+        <button class="btn-texto" id="btnProx">próxima ficha <span class="seta">→</span></button>
+        <span class="mono baralho-cont" id="baralhoCont"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MÁQUINA DE ELOGIOS ============ -->
+  <section class="cap" id="c-elogios" data-titulo="Máquina de elogios">
+    <header class="cap-cab">
+      <span class="cap-num mono"></span>
+      <h2 class="cap-titulo">Máquina de elogios</h2>
+      <p class="anotacao">estoque infinito, pode apertar</p>
+    </header>
+    <div class="cap-corpo">
+      <div class="maquina">
+        <div class="maq-corpo">
+          <div class="maq-topo mono"><span>Elogiômetro</span><span>mod. L-1</span></div>
+          <div class="maq-visor">
+            <span class="mono">emitidos</span>
+            <div class="odometro" id="odoElogios"></div>
+          </div>
+          <button class="maq-botao" id="btnElogio" aria-label="Imprimir um elogio"><span class="mono">aperte</span></button>
+          <div class="maq-fenda"></div>
+        </div>
+        <div class="maq-saida" id="maqSaida" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ O MEDIDOR ============ -->
+  <section class="cap" id="c-medidor" data-titulo="O medidor">
+    <header class="cap-cab">
+      <span class="cap-num mono"></span>
+      <h2 class="cap-titulo">Quanto eu gosto de você</h2>
+      <p class="anotacao">medição científica</p>
+    </header>
+    <div class="cap-corpo">
+      <div class="medidor" id="medidor">
+        <svg class="gauge" id="gauge" viewBox="0 0 300 190" aria-hidden="true"></svg>
+        <div class="medidor-leitura"><div class="odometro" id="odoMedidor"></div><span class="mono">%</span></div>
+        <p class="medidor-msg" id="medMsg">Segura o botão pra medir.</p>
+        <button class="btn-tecla" id="btnSegurar">segura aqui</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ VALES ============ -->
+  <section class="cap" id="c-vales" data-titulo="Vales">
+    <header class="cap-cab">
+      <span class="cap-num mono"></span>
+      <h2 class="cap-titulo">Vales</h2>
+      <p class="anotacao">sem data de validade</p>
+    </header>
+    <div class="cap-corpo">
+      <div class="vales" id="vales"></div>
+    </div>
+  </section>
+
+
+  <!-- ============ CONSTELAÇÃO ============ -->
+  <section class="cap noite" id="c-constelacao" data-titulo="Constelação">
+    <header class="cap-cab">
+      <span class="cap-num mono"></span>
+      <h2 class="cap-titulo">Uma constelação nova</h2>
+      <p class="anotacao" id="constInstrucao"></p>
+    </header>
+    <div class="cap-corpo">
+      <svg class="constelacao" id="constelacao" viewBox="0 0 400 360" role="img" aria-label="Estrelas para ligar"></svg>
+      <p class="const-msg" id="constMsg"></p>
+      <button class="btn-texto claro" id="constReset">recomeçar</button>
+    </div>
+  </section>
+
+  <!-- ============ A CARTA ============ -->
+  <section class="cap" id="c-carta" data-titulo="A carta">
+    <header class="cap-cab">
+      <span class="cap-num mono"></span>
+      <h2 class="cap-titulo">A carta</h2>
+      <p class="anotacao">abre com cuidado</p>
+    </header>
+    <div class="cap-corpo">
+      <div class="carta fechada" id="carta">
+        <div class="carta-papel">
+          <div class="carta-cab mono"><span id="cartaPara"></span><span>confidencial</span></div>
+          <div class="carta-dobra">
+            <div class="carta-conteudo" id="cartaConteudo"></div>
+          </div>
+        </div>
+        <button class="selo" id="selo" aria-label="Quebrar o selo e abrir a carta"><span data-inicial></span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERGUNTA FINAL ============ -->
+  <section class="final" id="c-final">
+    <p class="mono final-rot">Última página</p>
+    <h2 class="final-pergunta" id="finalPergunta"></h2>
+    <div class="final-botoes">
+      <button class="btn-cheio" id="btnSim"></button>
+      <button class="btn-vazado" id="btnNao"></button>
+    </div>
+    <p class="final-resposta" id="finalResposta" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="colofao mono">
+  <p>Composto à mão em <span id="dataColofao"></span>.</p>
+  <p>Tiragem de um exemplar. Só existe um, igual a ela.</p>
+</footer>
+
+<canvas id="confete" aria-hidden="true"></canvas>
+
+<script src="conteudo.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
